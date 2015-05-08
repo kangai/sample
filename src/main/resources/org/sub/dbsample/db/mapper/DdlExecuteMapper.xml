@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.sub.dbsample.db.mapper.DdlExecuteMapper" >
+
+    <resultMap id="BaseResultMap" type="org.sub.dbsample.db.dto.DdlResultDto">
+        <result column="id" property="id" jdbcType="NUMERIC" />
+        <result column="schema" property="schema" jdbcType="VARCHAR" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <select id="test" resultType="int" >
+        select 1 from dual
+    </select>
+
+    <update id="ddlExecute" parameterType="String">
+        ${value}
+    </update>
+
+    <select id="tableList" resultMap="BaseResultMap" >
+        select
+            rownum as id,
+            table_schema as schema,
+            table_name as name
+        from INFORMATION_SCHEMA.tables
+    </select>
+
+    <select id="tableSingle" parameterType="String" resultMap="BaseResultMap" >
+        select
+        rownum as id,
+        table_schema as schema,
+        table_name as name
+        from INFORMATION_SCHEMA.tables
+        where
+            table_name = #{value}
+    </select>
+
+</mapper>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:websocket="http://www.springframework.org/schema/websocket"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xsi:schemaLocation="
+    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd
+    http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket-4.1.xsd
+    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.1.xsd
+    ">
+
+
+    <context:component-scan base-package="org.sub.**.socket" />
+    <!--
+    <bean id="chatHandler" class="org.sub.wstest.front.socket.ChatHandler" />
+    -->
+
+    <websocket:handlers>
+        <websocket:mapping path="/websocket/chatEntry" handler="chatHandler"/>
+        <websocket:mapping path="/websocket/createTable" handler="dbSampleHandler"/>
+        <websocket:handshake-interceptors>
+            <bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor" />
+        </websocket:handshake-interceptors>
+    </websocket:handlers>
+
+	<bean id="handshakeHandler" class="org.springframework.web.socket.server.support.DefaultHandshakeHandler">
+		<constructor-arg ref="upgradeStrategy"/>
+	</bean>
+
+    <bean id="upgradeStrategy" class="org.springframework.web.socket.server.jetty.JettyRequestUpgradeStrategy">
+        <constructor-arg ref="serverFactory"/>
+    </bean>
+
+    <bean id="serverFactory" class="org.eclipse.jetty.websocket.server.WebSocketServerFactory">
+        <constructor-arg>
+            <bean class="org.eclipse.jetty.websocket.api.WebSocketPolicy">
+                <constructor-arg value="SERVER"/>
+                <property name="inputBufferSize" value="8092"/>
+                <property name="idleTimeout" value="600000"/>
+            </bean>
+        </constructor-arg>
+    </bean>
+
+</beans>

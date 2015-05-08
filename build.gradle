@@ -1,0 +1,104 @@
+apply plugin: 'java'
+apply plugin: 'war'
+apply plugin: 'eclipse-wtp'
+apply plugin: 'maven'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+group = 'org.support'
+archivesBaseName = 'project-support'
+version = '1.0.0-RELEASE'
+
+//jar
+jar {
+    manifest {
+        attributes 'Implementation-Title': 'Project Support', 'Implementation-Version': version
+    }
+}
+
+//リポジトリ
+repositories {
+
+	//central
+    mavenCentral()
+}
+
+//アーカイブ
+artifacts {
+	archives jar
+}
+
+
+List dependLib = ['javax.servlet:javax.servlet-api:3.1.0',
+					'org.eclipse.jetty:jetty-server:9.2.10.v20150310',
+					'org.eclipse.jetty:jetty-webapp:9.2.10.v20150310',
+					'org.eclipse.jetty:jetty-annotations:9.2.10.v20150310',
+					'javax.el:javax.el-api:2.2.5',
+					'com.h2database:h2:1.4.186',
+					'org.eclipse.jetty.websocket:websocket-server:9.2.10.v20150310',
+					'org.eclipse.jetty.websocket:websocket-client:9.2.10.v20150310',
+					'org.eclipse.jetty.websocket:websocket-common:9.2.10.v20150310',
+					'org.eclipse.jetty.websocket:websocket-api:9.2.10.v20150310',
+					'org.springframework:spring-beans:4.1.5.RELEASE',
+					'org.springframework:spring-web:4.1.5.RELEASE',
+					'org.springframework:spring-webmvc:4.1.5.RELEASE',
+					'org.springframework:spring-expression:4.1.5.RELEASE',
+					'org.springframework:spring-jdbc:4.1.5.RELEASE',
+					'org.springframework:spring-aop:4.1.5.RELEASE',
+					'org.springframework:spring-context:4.1.5.RELEASE',
+					'org.springframework:spring-websocket:4.1.5.RELEASE',
+					'org.aspectj:aspectjtools:1.8.5',
+					'org.aspectj:aspectjweaver:1.8.5',
+					'cglib:cglib:3.1',
+					'javax.validation:validation-api:1.1.0.Final',
+					'joda-time:joda-time:2.7',
+					'org.hibernate:hibernate-validator:5.1.3.Final',
+					'org.mybatis:mybatis:3.2.8',
+					'org.mybatis:mybatis-spring:1.2.2',
+					'org.slf4j:slf4j-api:1.7.10',
+					'log4j:log4j:1.2.17',
+					'ch.qos.logback:logback-classic:1.1.2',
+					'org.thymeleaf:thymeleaf:2.1.4.RELEASE',
+					'org.thymeleaf:thymeleaf-spring4:2.1.4.RELEASE',
+					'org.codehaus.jackson:jackson-core-asl:1.9.13',
+					'org.codehaus.jackson:jackson-mapper-asl:1.9.13',
+					'commons-lang:commons-lang:2.6',
+					'net.arnx:jsonic:1.3.7']
+
+//依存関係
+dependencies {
+
+	//コンパイル
+	compile dependLib
+
+	//ランタイム
+	runtime dependLib
+}
+
+//コンパイル
+compileJava {
+	options.encoding = 'UTF-8'
+}
+
+//eclipse設定
+eclipse {
+
+	pathVariables 'GRADLE_USER_HOME' : gradle.gradleUserHomeDir
+
+	project {
+		name = 'project-support'
+	}
+
+	wtp {
+		component {
+			deployName = 'project-support'
+			contextPath = 'project-support'
+		}
+
+		facet {
+			facet name: 'java', version: '1.8'
+			facet name: 'jst.web', version: '3.1'
+		}
+	}
+}
+

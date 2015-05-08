@@ -32,7 +32,7 @@ public class SimpleWebStarter {
         //ポート
         final int port = 8080;
         //コンテキスト
-        final String contextName = "project-support";
+        final String contextName = "sample";
 
         final Server server = new Server(port);
         final WebAppContext context = new WebAppContext();

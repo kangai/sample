@@ -131,6 +131,6 @@ var CommentForm = React.createClass({
 
 //‘S‘Ì‚Ì•`‰æ
 React.render(
-  <CommentBox url="http://172.31.122.33:8080/project-support/react/push" pollInterval={2000} />,
+  <CommentBox url="http://172.31.122.33:8080/sample/react/push" pollInterval={2000} />,
   document.getElementById('content')
 );

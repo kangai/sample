@@ -6,7 +6,7 @@ apply plugin: 'maven'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 group = 'org.support'
-archivesBaseName = 'project-support'
+archivesBaseName = 'sample'
 version = '1.0.0-RELEASE'
 
 //jar
@@ -86,13 +86,13 @@ eclipse {
 	pathVariables 'GRADLE_USER_HOME' : gradle.gradleUserHomeDir
 
 	project {
-		name = 'project-support'
+		name = 'sample'
 	}
 
 	wtp {
 		component {
-			deployName = 'project-support'
-			contextPath = 'project-support'
+			deployName = 'sample'
+			contextPath = 'sample'
 		}
 
 		facet {

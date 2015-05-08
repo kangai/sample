@@ -3,7 +3,7 @@ function SocketPushService() {
 	var service = {};
 	//callback—p
 	var pendingCallbacks = [];
-	var ws = new WebSocket("ws://172.31.122.33:8080/project-support/websocket/createTable");
+	var ws = new WebSocket("ws://172.31.122.33:8080/sample/websocket/createTable");
 	var preConnectionRequests = [];
 	var connected = false;
 
